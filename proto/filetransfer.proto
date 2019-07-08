@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pop;
+
+option java_package = "com.jason.proto";
+option java_outer_classname = "FileTransferProtos";
+
+message FileTransfer {
+    int64 length = 1;
+    string content = 2;
+}
