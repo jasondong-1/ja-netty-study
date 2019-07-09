@@ -11,7 +11,7 @@ import java.io.RandomAccessFile;
 public class FTSHandler extends SimpleChannelInboundHandler<ByteBuf> {
     private long length = 0;
     private long read = 0;
-    private RandomAccessFile raf = new RandomAccessFile(new File("jj.xml"), "rw");
+    private RandomAccessFile raf = new RandomAccessFile(new File("jj"), "rw");
 
     public FTSHandler() throws FileNotFoundException {
     }

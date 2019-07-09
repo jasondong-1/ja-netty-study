@@ -32,7 +32,7 @@ public class FileTransferClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new FTCHander("pom.xml"));
+                            ch.pipeline().addLast(new FTCHander("/usr/local/proto/bin/protoc"));
                         }
                     });
 

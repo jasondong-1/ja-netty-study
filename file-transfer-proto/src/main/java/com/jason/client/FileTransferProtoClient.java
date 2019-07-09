@@ -46,8 +46,8 @@ public class FileTransferProtoClient {
                             p.addLast(new ProtobufVarint32LengthFieldPrepender());
                             p.addLast(new ProtobufEncoder());
 
-                            //p.addLast(new FTPCHandler("/usr/local/proto/bin/protoc"));
-                            p.addLast(new FTPCHandler("/home/jason/log.log"));
+                            p.addLast(new FTPCHandler("/usr/local/proto/bin/protoc"));
+                            //p.addLast(new FTPCHandler("/home/jason/log.log"));
 
                         }
                     });

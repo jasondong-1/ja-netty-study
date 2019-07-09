@@ -27,16 +27,12 @@ public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.
                     .newBuilder();
 
             builder.setLength(raf.length());
-            //.setContent(ByteString.copyFrom("hello", "utf-8"));
-            //ctx.writeAndFlush(builder.build());
+
             int i = 0;
             byte[] bytes = new byte[SIZE];
             while ((i = raf.read(bytes)) != -1) {
                 System.out.println("读取了 " + i +"个字节");
-                builder.setContentBytes(ByteString.copyFrom(new String(bytes,0,i,"utf-8"),"utf-8"));
-                //String s = new String(bytes,0,i,"utf-8");
-                //System.out.println("字符串长度是：" + s.length());
-                //builder.setContent(s);
+                builder.setContent(ByteString.copyFrom(bytes,0,i));
                 ctx.writeAndFlush(builder.build());
                 bytes = new byte[SIZE];
             }

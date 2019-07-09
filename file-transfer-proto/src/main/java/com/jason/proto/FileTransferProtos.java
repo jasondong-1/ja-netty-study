@@ -122,14 +122,9 @@ public final class FileTransferProtos {
     long getLength();
 
     /**
-     * <code>string content = 2;</code>
+     * <code>bytes content = 2;</code>
      */
-    java.lang.String getContent();
-    /**
-     * <code>string content = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getContentBytes();
+    com.google.protobuf.ByteString getContent();
 
     /**
      * <code>string requestId = 3;</code>
@@ -154,7 +149,7 @@ public final class FileTransferProtos {
       super(builder);
     }
     private FileTransferRequest() {
-      content_ = "";
+      content_ = com.google.protobuf.ByteString.EMPTY;
       requestId_ = "";
     }
 
@@ -194,9 +189,8 @@ public final class FileTransferProtos {
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
 
-              content_ = s;
+              content_ = input.readBytes();
               break;
             }
             case 26: {
@@ -247,37 +241,12 @@ public final class FileTransferProtos {
     }
 
     public static final int CONTENT_FIELD_NUMBER = 2;
-    private volatile java.lang.Object content_;
+    private com.google.protobuf.ByteString content_;
     /**
-     * <code>string content = 2;</code>
+     * <code>bytes content = 2;</code>
      */
-    public java.lang.String getContent() {
-      java.lang.Object ref = content_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        content_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string content = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getContentBytes() {
-      java.lang.Object ref = content_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        content_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public com.google.protobuf.ByteString getContent() {
+      return content_;
     }
 
     public static final int REQUESTID_FIELD_NUMBER = 3;
@@ -331,8 +300,8 @@ public final class FileTransferProtos {
       if (length_ != 0L) {
         output.writeInt64(1, length_);
       }
-      if (!getContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
+      if (!content_.isEmpty()) {
+        output.writeBytes(2, content_);
       }
       if (!getRequestIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
@@ -350,8 +319,9 @@ public final class FileTransferProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, length_);
       }
-      if (!getContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
+      if (!content_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, content_);
       }
       if (!getRequestIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
@@ -530,7 +500,7 @@ public final class FileTransferProtos {
         super.clear();
         length_ = 0L;
 
-        content_ = "";
+        content_ = com.google.protobuf.ByteString.EMPTY;
 
         requestId_ = "";
 
@@ -614,9 +584,8 @@ public final class FileTransferProtos {
         if (other.getLength() != 0L) {
           setLength(other.getLength());
         }
-        if (!other.getContent().isEmpty()) {
-          content_ = other.content_;
-          onChanged();
+        if (other.getContent() != com.google.protobuf.ByteString.EMPTY) {
+          setContent(other.getContent());
         }
         if (!other.getRequestId().isEmpty()) {
           requestId_ = other.requestId_;
@@ -677,43 +646,17 @@ public final class FileTransferProtos {
         return this;
       }
 
-      private java.lang.Object content_ = "";
+      private com.google.protobuf.ByteString content_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>string content = 2;</code>
+       * <code>bytes content = 2;</code>
        */
-      public java.lang.String getContent() {
-        java.lang.Object ref = content_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          content_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public com.google.protobuf.ByteString getContent() {
+        return content_;
       }
       /**
-       * <code>string content = 2;</code>
+       * <code>bytes content = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getContentBytes() {
-        java.lang.Object ref = content_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          content_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string content = 2;</code>
-       */
-      public Builder setContent(
-          java.lang.String value) {
+      public Builder setContent(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -723,25 +666,11 @@ public final class FileTransferProtos {
         return this;
       }
       /**
-       * <code>string content = 2;</code>
+       * <code>bytes content = 2;</code>
        */
       public Builder clearContent() {
         
         content_ = getDefaultInstance().getContent();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string content = 2;</code>
-       */
-      public Builder setContentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        content_ = value;
         onChanged();
         return this;
       }
@@ -1674,7 +1603,7 @@ public final class FileTransferProtos {
     java.lang.String[] descriptorData = {
       "\n\022filetransfer.proto\022\003pop\"I\n\023FileTransfe" +
       "rRequest\022\016\n\006length\030\001 \001(\003\022\017\n\007content\030\002 \001(" +
-      "\t\022\021\n\trequestId\030\003 \001(\t\"X\n\024FileTransferResp" +
+      "\014\022\021\n\trequestId\030\003 \001(\t\"X\n\024FileTransferResp" +
       "onse\022\022\n\nresponseId\030\001 \001(\t\022\017\n\007content\030\002 \001(" +
       "\t\022\033\n\006status\030\003 \001(\0162\013.pop.Status*\"\n\006Status" +
       "\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001B%\n\017com.jason." +

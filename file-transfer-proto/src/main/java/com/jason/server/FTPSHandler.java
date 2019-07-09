@@ -24,9 +24,7 @@ public class FTPSHandler extends SimpleChannelInboundHandler<FileTransferProtos.
             System.out.println(length);
         }
         if (read != length) {
-            //byte[] bytes = msg.getContent().getBytes("utf-8");
-            byte[] bytes = msg.getContentBytes().toByteArray();
-            //System.out.println("字符串长度是:" + msg.getContent().length());
+            byte[] bytes = msg.getContent().toByteArray();
             System.out.println("server 读到的字节数" + bytes.length);
             raf.write(bytes);
             read += bytes.length;

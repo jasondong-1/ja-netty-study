@@ -7,7 +7,7 @@ option java_outer_classname = "FileTransferProtos";
 
 message FileTransferRequest {
     int64 length = 1;
-    string content = 2;
+    bytes content = 2;
     string requestId = 3;
 }
 
