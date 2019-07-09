@@ -14,8 +14,106 @@ public final class FileTransferProtos {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface FileTransferOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:pop.FileTransfer)
+  /**
+   * Protobuf enum {@code pop.Status}
+   */
+  public enum Status
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>SUCCESS = 0;</code>
+     */
+    SUCCESS(0),
+    /**
+     * <code>FAILURE = 1;</code>
+     */
+    FAILURE(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>SUCCESS = 0;</code>
+     */
+    public static final int SUCCESS_VALUE = 0;
+    /**
+     * <code>FAILURE = 1;</code>
+     */
+    public static final int FAILURE_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static Status valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static Status forNumber(int value) {
+      switch (value) {
+        case 0: return SUCCESS;
+        case 1: return FAILURE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Status>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        Status> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Status>() {
+            public Status findValueByNumber(int number) {
+              return Status.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.jason.proto.FileTransferProtos.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final Status[] VALUES = values();
+
+    public static Status valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private Status(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:pop.Status)
+  }
+
+  public interface FileTransferRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:pop.FileTransferRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -32,28 +130,39 @@ public final class FileTransferProtos {
      */
     com.google.protobuf.ByteString
         getContentBytes();
+
+    /**
+     * <code>string requestId = 3;</code>
+     */
+    java.lang.String getRequestId();
+    /**
+     * <code>string requestId = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getRequestIdBytes();
   }
   /**
-   * Protobuf type {@code pop.FileTransfer}
+   * Protobuf type {@code pop.FileTransferRequest}
    */
-  public  static final class FileTransfer extends
+  public  static final class FileTransferRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:pop.FileTransfer)
-      FileTransferOrBuilder {
+      // @@protoc_insertion_point(message_implements:pop.FileTransferRequest)
+      FileTransferRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use FileTransfer.newBuilder() to construct.
-    private FileTransfer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use FileTransferRequest.newBuilder() to construct.
+    private FileTransferRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private FileTransfer() {
+    private FileTransferRequest() {
       content_ = "";
+      requestId_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new FileTransfer();
+      return new FileTransferRequest();
     }
 
     @java.lang.Override
@@ -61,7 +170,7 @@ public final class FileTransferProtos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private FileTransfer(
+    private FileTransferRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -90,6 +199,12 @@ public final class FileTransferProtos {
               content_ = s;
               break;
             }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              requestId_ = s;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -111,15 +226,15 @@ public final class FileTransferProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransfer_descriptor;
+      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransfer_fieldAccessorTable
+      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.jason.proto.FileTransferProtos.FileTransfer.class, com.jason.proto.FileTransferProtos.FileTransfer.Builder.class);
+              com.jason.proto.FileTransferProtos.FileTransferRequest.class, com.jason.proto.FileTransferProtos.FileTransferRequest.Builder.class);
     }
 
     public static final int LENGTH_FIELD_NUMBER = 1;
@@ -165,6 +280,40 @@ public final class FileTransferProtos {
       }
     }
 
+    public static final int REQUESTID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object requestId_;
+    /**
+     * <code>string requestId = 3;</code>
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string requestId = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -185,6 +334,9 @@ public final class FileTransferProtos {
       if (!getContentBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
       }
+      if (!getRequestIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -201,6 +353,9 @@ public final class FileTransferProtos {
       if (!getContentBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
       }
+      if (!getRequestIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -211,15 +366,17 @@ public final class FileTransferProtos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.jason.proto.FileTransferProtos.FileTransfer)) {
+      if (!(obj instanceof com.jason.proto.FileTransferProtos.FileTransferRequest)) {
         return super.equals(obj);
       }
-      com.jason.proto.FileTransferProtos.FileTransfer other = (com.jason.proto.FileTransferProtos.FileTransfer) obj;
+      com.jason.proto.FileTransferProtos.FileTransferRequest other = (com.jason.proto.FileTransferProtos.FileTransferRequest) obj;
 
       if (getLength()
           != other.getLength()) return false;
       if (!getContent()
           .equals(other.getContent())) return false;
+      if (!getRequestId()
+          .equals(other.getRequestId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -236,74 +393,76 @@ public final class FileTransferProtos {
           getLength());
       hash = (37 * hash) + CONTENT_FIELD_NUMBER;
       hash = (53 * hash) + getContent().hashCode();
+      hash = (37 * hash) + REQUESTID_FIELD_NUMBER;
+      hash = (53 * hash) + getRequestId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(byte[] data)
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(java.io.InputStream input)
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseDelimitedFrom(java.io.InputStream input)
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseDelimitedFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.jason.proto.FileTransferProtos.FileTransfer parseFrom(
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -316,7 +475,7 @@ public final class FileTransferProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.jason.proto.FileTransferProtos.FileTransfer prototype) {
+    public static Builder newBuilder(com.jason.proto.FileTransferProtos.FileTransferRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -332,26 +491,26 @@ public final class FileTransferProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code pop.FileTransfer}
+     * Protobuf type {@code pop.FileTransferRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:pop.FileTransfer)
-        com.jason.proto.FileTransferProtos.FileTransferOrBuilder {
+        // @@protoc_insertion_point(builder_implements:pop.FileTransferRequest)
+        com.jason.proto.FileTransferProtos.FileTransferRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransfer_descriptor;
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransfer_fieldAccessorTable
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.jason.proto.FileTransferProtos.FileTransfer.class, com.jason.proto.FileTransferProtos.FileTransfer.Builder.class);
+                com.jason.proto.FileTransferProtos.FileTransferRequest.class, com.jason.proto.FileTransferProtos.FileTransferRequest.Builder.class);
       }
 
-      // Construct using com.jason.proto.FileTransferProtos.FileTransfer.newBuilder()
+      // Construct using com.jason.proto.FileTransferProtos.FileTransferRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -373,23 +532,25 @@ public final class FileTransferProtos {
 
         content_ = "";
 
+        requestId_ = "";
+
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransfer_descriptor;
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferRequest_descriptor;
       }
 
       @java.lang.Override
-      public com.jason.proto.FileTransferProtos.FileTransfer getDefaultInstanceForType() {
-        return com.jason.proto.FileTransferProtos.FileTransfer.getDefaultInstance();
+      public com.jason.proto.FileTransferProtos.FileTransferRequest getDefaultInstanceForType() {
+        return com.jason.proto.FileTransferProtos.FileTransferRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.jason.proto.FileTransferProtos.FileTransfer build() {
-        com.jason.proto.FileTransferProtos.FileTransfer result = buildPartial();
+      public com.jason.proto.FileTransferProtos.FileTransferRequest build() {
+        com.jason.proto.FileTransferProtos.FileTransferRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -397,10 +558,11 @@ public final class FileTransferProtos {
       }
 
       @java.lang.Override
-      public com.jason.proto.FileTransferProtos.FileTransfer buildPartial() {
-        com.jason.proto.FileTransferProtos.FileTransfer result = new com.jason.proto.FileTransferProtos.FileTransfer(this);
+      public com.jason.proto.FileTransferProtos.FileTransferRequest buildPartial() {
+        com.jason.proto.FileTransferProtos.FileTransferRequest result = new com.jason.proto.FileTransferProtos.FileTransferRequest(this);
         result.length_ = length_;
         result.content_ = content_;
+        result.requestId_ = requestId_;
         onBuilt();
         return result;
       }
@@ -439,21 +601,25 @@ public final class FileTransferProtos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.jason.proto.FileTransferProtos.FileTransfer) {
-          return mergeFrom((com.jason.proto.FileTransferProtos.FileTransfer)other);
+        if (other instanceof com.jason.proto.FileTransferProtos.FileTransferRequest) {
+          return mergeFrom((com.jason.proto.FileTransferProtos.FileTransferRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.jason.proto.FileTransferProtos.FileTransfer other) {
-        if (other == com.jason.proto.FileTransferProtos.FileTransfer.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.jason.proto.FileTransferProtos.FileTransferRequest other) {
+        if (other == com.jason.proto.FileTransferProtos.FileTransferRequest.getDefaultInstance()) return this;
         if (other.getLength() != 0L) {
           setLength(other.getLength());
         }
         if (!other.getContent().isEmpty()) {
           content_ = other.content_;
+          onChanged();
+        }
+        if (!other.getRequestId().isEmpty()) {
+          requestId_ = other.requestId_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -471,11 +637,11 @@ public final class FileTransferProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.jason.proto.FileTransferProtos.FileTransfer parsedMessage = null;
+        com.jason.proto.FileTransferProtos.FileTransferRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.jason.proto.FileTransferProtos.FileTransfer) e.getUnfinishedMessage();
+          parsedMessage = (com.jason.proto.FileTransferProtos.FileTransferRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -579,6 +745,75 @@ public final class FileTransferProtos {
         onChanged();
         return this;
       }
+
+      private java.lang.Object requestId_ = "";
+      /**
+       * <code>string requestId = 3;</code>
+       */
+      public java.lang.String getRequestId() {
+        java.lang.Object ref = requestId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          requestId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string requestId = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRequestIdBytes() {
+        java.lang.Object ref = requestId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          requestId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string requestId = 3;</code>
+       */
+      public Builder setRequestId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        requestId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string requestId = 3;</code>
+       */
+      public Builder clearRequestId() {
+        
+        requestId_ = getDefaultInstance().getRequestId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string requestId = 3;</code>
+       */
+      public Builder setRequestIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        requestId_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -592,51 +827,842 @@ public final class FileTransferProtos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:pop.FileTransfer)
+      // @@protoc_insertion_point(builder_scope:pop.FileTransferRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:pop.FileTransfer)
-    private static final com.jason.proto.FileTransferProtos.FileTransfer DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:pop.FileTransferRequest)
+    private static final com.jason.proto.FileTransferProtos.FileTransferRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.jason.proto.FileTransferProtos.FileTransfer();
+      DEFAULT_INSTANCE = new com.jason.proto.FileTransferProtos.FileTransferRequest();
     }
 
-    public static com.jason.proto.FileTransferProtos.FileTransfer getDefaultInstance() {
+    public static com.jason.proto.FileTransferProtos.FileTransferRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<FileTransfer>
-        PARSER = new com.google.protobuf.AbstractParser<FileTransfer>() {
+    private static final com.google.protobuf.Parser<FileTransferRequest>
+        PARSER = new com.google.protobuf.AbstractParser<FileTransferRequest>() {
       @java.lang.Override
-      public FileTransfer parsePartialFrom(
+      public FileTransferRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FileTransfer(input, extensionRegistry);
+        return new FileTransferRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<FileTransfer> parser() {
+    public static com.google.protobuf.Parser<FileTransferRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<FileTransfer> getParserForType() {
+    public com.google.protobuf.Parser<FileTransferRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.jason.proto.FileTransferProtos.FileTransfer getDefaultInstanceForType() {
+    public com.jason.proto.FileTransferProtos.FileTransferRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface FileTransferResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:pop.FileTransferResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string responseId = 1;</code>
+     */
+    java.lang.String getResponseId();
+    /**
+     * <code>string responseId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getResponseIdBytes();
+
+    /**
+     * <code>string content = 2;</code>
+     */
+    java.lang.String getContent();
+    /**
+     * <code>string content = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getContentBytes();
+
+    /**
+     * <code>.pop.Status status = 3;</code>
+     */
+    int getStatusValue();
+    /**
+     * <code>.pop.Status status = 3;</code>
+     */
+    com.jason.proto.FileTransferProtos.Status getStatus();
+  }
+  /**
+   * Protobuf type {@code pop.FileTransferResponse}
+   */
+  public  static final class FileTransferResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:pop.FileTransferResponse)
+      FileTransferResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FileTransferResponse.newBuilder() to construct.
+    private FileTransferResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FileTransferResponse() {
+      responseId_ = "";
+      content_ = "";
+      status_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FileTransferResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FileTransferResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              responseId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              content_ = s;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.jason.proto.FileTransferProtos.FileTransferResponse.class, com.jason.proto.FileTransferProtos.FileTransferResponse.Builder.class);
+    }
+
+    public static final int RESPONSEID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object responseId_;
+    /**
+     * <code>string responseId = 1;</code>
+     */
+    public java.lang.String getResponseId() {
+      java.lang.Object ref = responseId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        responseId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string responseId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getResponseIdBytes() {
+      java.lang.Object ref = responseId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        responseId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CONTENT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object content_;
+    /**
+     * <code>string content = 2;</code>
+     */
+    public java.lang.String getContent() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        content_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string content = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getContentBytes() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        content_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 3;
+    private int status_;
+    /**
+     * <code>.pop.Status status = 3;</code>
+     */
+    public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.pop.Status status = 3;</code>
+     */
+    public com.jason.proto.FileTransferProtos.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      com.jason.proto.FileTransferProtos.Status result = com.jason.proto.FileTransferProtos.Status.valueOf(status_);
+      return result == null ? com.jason.proto.FileTransferProtos.Status.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getResponseIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, responseId_);
+      }
+      if (!getContentBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
+      }
+      if (status_ != com.jason.proto.FileTransferProtos.Status.SUCCESS.getNumber()) {
+        output.writeEnum(3, status_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getResponseIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, responseId_);
+      }
+      if (!getContentBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
+      }
+      if (status_ != com.jason.proto.FileTransferProtos.Status.SUCCESS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, status_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.jason.proto.FileTransferProtos.FileTransferResponse)) {
+        return super.equals(obj);
+      }
+      com.jason.proto.FileTransferProtos.FileTransferResponse other = (com.jason.proto.FileTransferProtos.FileTransferResponse) obj;
+
+      if (!getResponseId()
+          .equals(other.getResponseId())) return false;
+      if (!getContent()
+          .equals(other.getContent())) return false;
+      if (status_ != other.status_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RESPONSEID_FIELD_NUMBER;
+      hash = (53 * hash) + getResponseId().hashCode();
+      hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+      hash = (53 * hash) + getContent().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.jason.proto.FileTransferProtos.FileTransferResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code pop.FileTransferResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:pop.FileTransferResponse)
+        com.jason.proto.FileTransferProtos.FileTransferResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.jason.proto.FileTransferProtos.FileTransferResponse.class, com.jason.proto.FileTransferProtos.FileTransferResponse.Builder.class);
+      }
+
+      // Construct using com.jason.proto.FileTransferProtos.FileTransferResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        responseId_ = "";
+
+        content_ = "";
+
+        status_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.jason.proto.FileTransferProtos.internal_static_pop_FileTransferResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.jason.proto.FileTransferProtos.FileTransferResponse getDefaultInstanceForType() {
+        return com.jason.proto.FileTransferProtos.FileTransferResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.jason.proto.FileTransferProtos.FileTransferResponse build() {
+        com.jason.proto.FileTransferProtos.FileTransferResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.jason.proto.FileTransferProtos.FileTransferResponse buildPartial() {
+        com.jason.proto.FileTransferProtos.FileTransferResponse result = new com.jason.proto.FileTransferProtos.FileTransferResponse(this);
+        result.responseId_ = responseId_;
+        result.content_ = content_;
+        result.status_ = status_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.jason.proto.FileTransferProtos.FileTransferResponse) {
+          return mergeFrom((com.jason.proto.FileTransferProtos.FileTransferResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.jason.proto.FileTransferProtos.FileTransferResponse other) {
+        if (other == com.jason.proto.FileTransferProtos.FileTransferResponse.getDefaultInstance()) return this;
+        if (!other.getResponseId().isEmpty()) {
+          responseId_ = other.responseId_;
+          onChanged();
+        }
+        if (!other.getContent().isEmpty()) {
+          content_ = other.content_;
+          onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.jason.proto.FileTransferProtos.FileTransferResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.jason.proto.FileTransferProtos.FileTransferResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object responseId_ = "";
+      /**
+       * <code>string responseId = 1;</code>
+       */
+      public java.lang.String getResponseId() {
+        java.lang.Object ref = responseId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          responseId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string responseId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getResponseIdBytes() {
+        java.lang.Object ref = responseId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          responseId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string responseId = 1;</code>
+       */
+      public Builder setResponseId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        responseId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string responseId = 1;</code>
+       */
+      public Builder clearResponseId() {
+        
+        responseId_ = getDefaultInstance().getResponseId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string responseId = 1;</code>
+       */
+      public Builder setResponseIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        responseId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object content_ = "";
+      /**
+       * <code>string content = 2;</code>
+       */
+      public java.lang.String getContent() {
+        java.lang.Object ref = content_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          content_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string content = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContentBytes() {
+        java.lang.Object ref = content_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          content_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string content = 2;</code>
+       */
+      public Builder setContent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string content = 2;</code>
+       */
+      public Builder clearContent() {
+        
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string content = 2;</code>
+       */
+      public Builder setContentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        content_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.pop.Status status = 3;</code>
+       */
+      public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.pop.Status status = 3;</code>
+       */
+      public Builder setStatusValue(int value) {
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.pop.Status status = 3;</code>
+       */
+      public com.jason.proto.FileTransferProtos.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        com.jason.proto.FileTransferProtos.Status result = com.jason.proto.FileTransferProtos.Status.valueOf(status_);
+        return result == null ? com.jason.proto.FileTransferProtos.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.pop.Status status = 3;</code>
+       */
+      public Builder setStatus(com.jason.proto.FileTransferProtos.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.pop.Status status = 3;</code>
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:pop.FileTransferResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:pop.FileTransferResponse)
+    private static final com.jason.proto.FileTransferProtos.FileTransferResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.jason.proto.FileTransferProtos.FileTransferResponse();
+    }
+
+    public static com.jason.proto.FileTransferProtos.FileTransferResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FileTransferResponse>
+        PARSER = new com.google.protobuf.AbstractParser<FileTransferResponse>() {
+      @java.lang.Override
+      public FileTransferResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FileTransferResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FileTransferResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FileTransferResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.jason.proto.FileTransferProtos.FileTransferResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_pop_FileTransfer_descriptor;
+    internal_static_pop_FileTransferRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_pop_FileTransfer_fieldAccessorTable;
+      internal_static_pop_FileTransferRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_pop_FileTransferResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_pop_FileTransferResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -646,21 +1672,30 @@ public final class FileTransferProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022filetransfer.proto\022\003pop\"/\n\014FileTransfe" +
-      "r\022\016\n\006length\030\001 \001(\003\022\017\n\007content\030\002 \001(\tB%\n\017co" +
-      "m.jason.protoB\022FileTransferProtosb\006proto" +
-      "3"
+      "\n\022filetransfer.proto\022\003pop\"I\n\023FileTransfe" +
+      "rRequest\022\016\n\006length\030\001 \001(\003\022\017\n\007content\030\002 \001(" +
+      "\t\022\021\n\trequestId\030\003 \001(\t\"X\n\024FileTransferResp" +
+      "onse\022\022\n\nresponseId\030\001 \001(\t\022\017\n\007content\030\002 \001(" +
+      "\t\022\033\n\006status\030\003 \001(\0162\013.pop.Status*\"\n\006Status" +
+      "\022\013\n\007SUCCESS\020\000\022\013\n\007FAILURE\020\001B%\n\017com.jason." +
+      "protoB\022FileTransferProtosb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_pop_FileTransfer_descriptor =
+    internal_static_pop_FileTransferRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_pop_FileTransfer_fieldAccessorTable = new
+    internal_static_pop_FileTransferRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_pop_FileTransfer_descriptor,
-        new java.lang.String[] { "Length", "Content", });
+        internal_static_pop_FileTransferRequest_descriptor,
+        new java.lang.String[] { "Length", "Content", "RequestId", });
+    internal_static_pop_FileTransferResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_pop_FileTransferResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_pop_FileTransferResponse_descriptor,
+        new java.lang.String[] { "ResponseId", "Content", "Status", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

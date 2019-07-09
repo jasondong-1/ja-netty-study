@@ -5,7 +5,19 @@ package pop;
 option java_package = "com.jason.proto";
 option java_outer_classname = "FileTransferProtos";
 
-message FileTransfer {
+message FileTransferRequest {
     int64 length = 1;
     string content = 2;
+    string requestId = 3;
+}
+
+message FileTransferResponse {
+    string responseId = 1;
+    string content = 2;
+    Status status = 3;
+}
+
+enum Status {
+    SUCCESS = 0;
+    FAILURE = 1;
 }

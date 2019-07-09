@@ -7,31 +7,39 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 
-public class FTPSHandler extends SimpleChannelInboundHandler<FileTransferProtos.FileTransfer> {
+public class FTPSHandler extends SimpleChannelInboundHandler<FileTransferProtos.FileTransferRequest> {
 
     private RandomAccessFile raf;
     private long length = -1;
     private long read = 0;
 
     public FTPSHandler() throws FileNotFoundException {
-        raf = new RandomAccessFile("jj.xml","rw");
+        raf = new RandomAccessFile("protoc2", "rw");
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, FileTransferProtos.FileTransfer msg) throws Exception {
-            if(length == -1){
-                length = msg.getLength();
-                System.out.println(length);
-            }
-            if(read!=length){
-                byte[] bytes = msg.getContent().getBytes("utf-8");
-                raf.write(bytes);
-                read += bytes.length;
-            }
-            if(read == length) {
-                raf.close();
-                ctx.close();
-            }
+    protected void channelRead0(ChannelHandlerContext ctx, FileTransferProtos.FileTransferRequest msg) throws Exception {
+        if (length == -1) {
+            length = msg.getLength();
+            System.out.println(length);
+        }
+        if (read != length) {
+            //byte[] bytes = msg.getContent().getBytes("utf-8");
+            byte[] bytes = msg.getContentBytes().toByteArray();
+            //System.out.println("字符串长度是:" + msg.getContent().length());
+            System.out.println("server 读到的字节数" + bytes.length);
+            raf.write(bytes);
+            read += bytes.length;
+            System.out.println(read);
+        }
+        if (read == length) {
+            raf.close();
+            FileTransferProtos.FileTransferResponse.Builder builder = FileTransferProtos
+                    .FileTransferResponse
+                    .newBuilder();
+            builder.setStatus(FileTransferProtos.Status.SUCCESS);
+            ctx.writeAndFlush(builder.build());
+        }
     }
 
     @Override

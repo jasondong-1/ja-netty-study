@@ -1,5 +1,6 @@
 package com.jason.client;
 
+import com.google.protobuf.ByteString;
 import com.jason.proto.FileTransferProtos;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -8,12 +9,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 
-public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.FileTransfer> {
+public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.FileTransferResponse> {
 
     private String name;
     private RandomAccessFile raf;
-    private final int SIZE =  1024*8;
-
+    private final int SIZE =  1024*50;
     public FTPCHandler(String name) throws FileNotFoundException {
         this.name = name;
         raf = new RandomAccessFile(new File(name), "r");
@@ -22,8 +22,8 @@ public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         try {
-            FileTransferProtos.FileTransfer.Builder builder = FileTransferProtos
-                    .FileTransfer
+            FileTransferProtos.FileTransferRequest.Builder builder = FileTransferProtos
+                    .FileTransferRequest
                     .newBuilder();
 
             builder.setLength(raf.length());
@@ -32,9 +32,11 @@ public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.
             int i = 0;
             byte[] bytes = new byte[SIZE];
             while ((i = raf.read(bytes)) != -1) {
-
-                String s = new String(bytes,0,i,"utf-8");
-                builder.setContent(s);
+                System.out.println("读取了 " + i +"个字节");
+                builder.setContentBytes(ByteString.copyFrom(new String(bytes,0,i,"utf-8"),"utf-8"));
+                //String s = new String(bytes,0,i,"utf-8");
+                //System.out.println("字符串长度是：" + s.length());
+                //builder.setContent(s);
                 ctx.writeAndFlush(builder.build());
                 bytes = new byte[SIZE];
             }
@@ -43,13 +45,20 @@ public class FTPCHandler extends SimpleChannelInboundHandler<FileTransferProtos.
         }
     }
 
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, FileTransferProtos.FileTransfer msg) throws Exception {
 
-    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, FileTransferProtos.FileTransferResponse msg) throws Exception {
+        System.out.println(msg.getStatus());
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.close();
     }
 }

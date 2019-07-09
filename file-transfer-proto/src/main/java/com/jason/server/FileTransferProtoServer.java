@@ -41,7 +41,7 @@ public class FileTransferProtoServer {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new ProtobufVarint32FrameDecoder());
-                            p.addLast(new ProtobufDecoder(FileTransferProtos.FileTransfer.getDefaultInstance()));
+                            p.addLast(new ProtobufDecoder(FileTransferProtos.FileTransferRequest.getDefaultInstance()));
 
                             p.addLast(new ProtobufVarint32LengthFieldPrepender());
                             p.addLast(new ProtobufEncoder());

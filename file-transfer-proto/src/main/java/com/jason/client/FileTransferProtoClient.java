@@ -41,12 +41,13 @@ public class FileTransferProtoClient {
                             ChannelPipeline p = ch.pipeline();
 
                             p.addLast(new ProtobufVarint32FrameDecoder());
-                            p.addLast(new ProtobufDecoder(FileTransferProtos.FileTransfer.getDefaultInstance()));
+                            p.addLast(new ProtobufDecoder(FileTransferProtos.FileTransferResponse.getDefaultInstance()));
 
                             p.addLast(new ProtobufVarint32LengthFieldPrepender());
                             p.addLast(new ProtobufEncoder());
 
-                            p.addLast(new FTPCHandler("pom.xml"));
+                            //p.addLast(new FTPCHandler("/usr/local/proto/bin/protoc"));
+                            p.addLast(new FTPCHandler("/home/jason/log.log"));
 
                         }
                     });
