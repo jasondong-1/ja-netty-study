@@ -4,6 +4,7 @@ import com.google.protobuf.ByteString;
 import com.jason.proto.FileTransferProtos;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.Timer;
 
 import java.io.File;
 import java.io.FileNotFoundException;

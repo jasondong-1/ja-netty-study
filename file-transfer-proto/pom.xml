@@ -25,6 +25,7 @@
     <groupId>com.jason</groupId>
     <artifactId>file-transfer-proto</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.google.protobuf</groupId>

@@ -10,6 +10,7 @@
     <modules>
         <module>file-transfer</module>
         <module>file-transfer-proto</module>
+        <module>heart-beat</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>
