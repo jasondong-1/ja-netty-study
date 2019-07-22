@@ -4,9 +4,6 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ChannelHandler.Sharable
 public abstract class ReconnectHandler extends ChannelInboundHandlerAdapter {
     private int trytime = 5;
