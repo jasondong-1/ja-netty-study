@@ -23,7 +23,7 @@ public abstract class ReconnectHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("进入inactive");
+        System.out.println("进入 inactive");
         if (count < trytime) {
             count += 1;
             boot.handler(new ChannelInitializer<SocketChannel>() {
@@ -42,7 +42,8 @@ public abstract class ReconnectHandler extends ChannelInboundHandlerAdapter {
                         System.out.println("重连成功");
                     } else {
                         System.out.println("重连失败，即将重连");
-                        future.channel().pipeline().fireChannelInactive();
+                        //经过测试下面一行代码不必写
+                        //future.channel().pipeline().fireChannelInactive();
                     }
                 }
             });

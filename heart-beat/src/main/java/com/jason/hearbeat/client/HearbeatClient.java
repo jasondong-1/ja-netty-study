@@ -12,6 +12,8 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HearbeatClient {
     private String host;
@@ -51,6 +53,7 @@ public class HearbeatClient {
                     });
             ChannelFuture future = boot.connect().sync();
             System.out.println("client 链接成功");
+            System.out.println("channel id :" + future.channel().id().asLongText());
             future.channel().closeFuture().sync();
         } finally {
             //System.out.println("gracefully");
@@ -61,7 +64,7 @@ public class HearbeatClient {
 
 
     public static void main(String[] args) throws InterruptedException {
-        HearbeatClient client = new HearbeatClient("192.168.31.149", 9000);
+        HearbeatClient client = new HearbeatClient("localhost", 9000);
         client.start();
     }
 }

@@ -18,6 +18,10 @@ public class ClientIdleTrigger extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(Unpooled.copiedBuffer("jason",CharsetUtil.UTF_8));
     }
 
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("进入it inactive");
+    }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -30,5 +34,11 @@ public class ClientIdleTrigger extends ChannelInboundHandlerAdapter {
         }else {
             ctx.fireUserEventTriggered(evt);
         }
+    }
+
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
     }
 }

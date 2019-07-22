@@ -23,7 +23,7 @@ public class HearbeatServer {
             ServerBootstrap boot = new ServerBootstrap();
             boot.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
-                    .localAddress(new InetSocketAddress("192.168.31.149",port))
+                    .localAddress(new InetSocketAddress("localhost",port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
