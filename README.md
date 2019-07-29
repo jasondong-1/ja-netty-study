@@ -6,8 +6,10 @@
 > hello 
   
 ---
-`public static void main(Stirng[] args){  
-  system.out.println("hello")  
+`public static void main(Stirng[] args){
+ 
+  system.out.println("hello")
+    
 }`
 
 
