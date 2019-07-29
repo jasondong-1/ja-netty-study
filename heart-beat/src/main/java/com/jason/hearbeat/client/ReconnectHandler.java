@@ -47,6 +47,9 @@ public abstract class ReconnectHandler extends ChannelInboundHandlerAdapter {
         } else {
             group.shutdownGracefully();
         }
+
+        System.out.println(ctx.channel().id().asShortText());
+        System.out.println(ctx.channel().id().asLongText());
         ctx.fireChannelInactive();
     }
 

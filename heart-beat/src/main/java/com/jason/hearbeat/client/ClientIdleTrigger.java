@@ -28,7 +28,7 @@ public class ClientIdleTrigger extends ChannelInboundHandlerAdapter {
         if(evt instanceof IdleStateEvent){
             IdleState state = ((IdleStateEvent) evt).state();
             if(state == IdleState.WRITER_IDLE){
-                ctx.writeAndFlush(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
+                //ctx.writeAndFlush(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
                 System.out.println("发送心跳");
             }
         }else {

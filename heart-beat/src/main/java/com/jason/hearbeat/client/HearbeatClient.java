@@ -29,7 +29,7 @@ public class HearbeatClient {
         final ClientIdleTrigger ct = new ClientIdleTrigger();
         try {
             final Bootstrap boot = new Bootstrap();
-            final ArrayList<ChannelHandler> list = new ArrayList<>(5);
+            final ArrayList<ChannelHandler> list = new ArrayList<ChannelHandler>(5);
             list.add(new IdleStateHandler(0, 5, 0));
             list.add(ct);
             boot.group(group)
@@ -39,6 +39,7 @@ public class HearbeatClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
+                                    .addLast()
                                     .addLast(new ReconnectHandler(boot, group) {
                                         @Override
                                         public ChannelHandler[] getHandlers() {
