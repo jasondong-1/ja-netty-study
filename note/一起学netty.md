@@ -27,4 +27,4 @@
 netty其实就是客户端(client)和服务端(server)的相互通信，就是我们凭窗说的cs架构，关系如下图
 
 
-![avatar](picture/nettycs.png)
+![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettycs.png)
