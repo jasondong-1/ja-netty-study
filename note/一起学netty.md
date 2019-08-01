@@ -23,8 +23,20 @@
 * 事件和channelhandler  
 事件和事件处理器，这是跟我们业务息息相关的东西
 
+可以先看一个nety的 [简单例子](https://github.com/jasondong-1/ja-netty-study/blob/master/echo)
+
 #### 4.图解netty  
-netty其实就是客户端(client)和服务端(server)的相互通信，就是我们凭窗说的cs架构，关系如下图
+netty其实就是客户端(client)和服务端(server)的相互通信，就是我们凭窗说的cs架构，关系如下图  
+![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettycs.png)  
+具体细节如下图  
+![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettylifecycle.png)  
 
+具体关系如下：  
+* 一个EventLoopGroup包含多个EventLoop  
+* 一个eventloop在他的生命周期内只和一个Thread绑定  
+* 所有由eventloop处理的i/o事件都将在它转悠的Thread上处理  
+* 一个channel在他的生命周期内只注册于一个eventloop  
+* 一个eventloop可能会被分配给一个或多个channel
 
-![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettycs.png)
+#### 5.netty的组件和设计  
+##### 5.1channelhandler 和channelpipeline
