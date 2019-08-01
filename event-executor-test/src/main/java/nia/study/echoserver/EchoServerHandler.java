@@ -2,6 +2,7 @@ package nia.study.echoserver;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,22 +24,37 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
-        String s = in.toString(CharsetUtil.UTF_8);
+        final String s = in.toString(CharsetUtil.UTF_8);
+        final ChannelHandlerContext ctx2 = ctx;
         Future<Integer> ff = ctx.executor().submit(new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
                 int i = Integer.valueOf(s);
-                long ll = (10 - i) * 200;
+                long ll = (10 - i) * 300;
                 System.out.println(
                         "Server received: " + s + ",我要睡" + ll + "ms.我是" + Thread.currentThread().getId());
                 Thread.sleep(ll);
-                ctx.writeAndFlush(Unpooled.copiedBuffer(String.valueOf(s), CharsetUtil.UTF_8));
+                ctx2.writeAndFlush(Unpooled.copiedBuffer(String.valueOf(s), CharsetUtil.UTF_8));
                 return 3;
             }
         });
         ReferenceCountUtil.release(msg);
         System.out.println("read  末尾");
         ctx.writeAndFlush(Unpooled.copiedBuffer("hello"+s,CharsetUtil.UTF_8));
+        if (s.equals("5")) {
+            System.out.println("即将关闭channel");
+            ctx.close().addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    if (future.isSuccess()) {
+                        System.out.println("成功关闭channel");
+                        System.out.println(future.isDone());
+                    } else {
+                        future.cause().printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     @Override

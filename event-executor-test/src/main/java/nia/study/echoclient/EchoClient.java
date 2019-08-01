@@ -20,6 +20,7 @@ import java.net.InetSocketAddress;
 public class EchoClient {
     private final String host;
     private final int port;
+    private DefaultEventExecutorGroup executors = new DefaultEventExecutorGroup(1);
 
     public EchoClient(String host, int port) {
         this.host = host;
@@ -38,7 +39,7 @@ public class EchoClient {
                         @Override
                         public void initChannel(SocketChannel ch)
                                 throws Exception {
-                            ch.pipeline().addLast(new DefaultEventExecutorGroup(3),
+                            ch.pipeline().addLast(executors,
                                     new EchoClientHandler());
                         }
                     });
@@ -46,6 +47,7 @@ public class EchoClient {
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();
+            executors.shutdownGracefully();
         }
     }
 
