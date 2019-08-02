@@ -72,5 +72,59 @@ outhandler(a)  ---> inhandler(b) ---> outhandler2(c)
 handler
 方法2 会使出站事件只流经a，参考代码 [direction](https://github.com/jasondong-1/ja-netty-study/blob/master/direction)
 
-
 > 注：writeandflush(msg) 已经调用过ReferenceCountUtil.release(msg)
+
+#### 5.2 bootstrap 引导  
+引导是创建channel 的一个帮助类
+
+client的引导
+```java
+            Bootstrap b = new Bootstrap();
+            //指定 EventLoopGroup 以处理客户端事件；需要适用于 NIO 的实现
+            b.group(group)
+                    //适用于 NIO 传输的Channel 类型
+                    .channel(NioSocketChannel.class)
+                    //设置服务器的InetSocketAddress
+                    .remoteAddress(new InetSocketAddress(host, port))
+                    //在创建Channel时，向 ChannelPipeline中添加一个 EchoClientHandler实例
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch)
+                                throws Exception {
+                            ch.pipeline()
+                                    .addLast(new EchoOutHandler())
+                                    .addLast(new EchoClientHandler())
+                                    .addLast(new EchoOutHandler2());
+                        }
+                    });
+```  
+server 的引导  
+```java
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(boss, worker)
+                    //(3) 指定所使用的 NIO 传输 Channel
+                    .channel(NioServerSocketChannel.class)
+                    //(4) 使用指定的端口设置套接字地址
+                    .localAddress(new InetSocketAddress(port))
+                    //(5) 添加一个EchoServerHandler到于Channel的 ChannelPipeline
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            //EchoServerHandler 被标注为@Shareable，所以我们可以总是使用同样的实例
+                            //这里对于所有的客户端连接来说，都会使用同一个 EchoServerHandler，因为其被标注为@Sharable，
+                            //这将在后面的章节中讲到。
+                            ch.pipeline()
+                                    .addLast(new ServerOutHandler())
+                                    .addLast(serverHandler)
+                                    .addLast(new ServerOuthandler2());
+                        }
+                    });
+
+```
+bootstrap可以帮助我们设置一些信息，比如eventloopgroup，链接地址，channel类型，handler等等  
+细心的读者可能发现了client引导的group() 方法只传了一个eventloopgroup，而server的引导的group()  
+得传两个group，这是因为服务端需要两组不同的channel，**一组只包含一个serverchannel，用于监听是否有  
+连接接过来，另一组代表已经创建的需要处理的客户端连接**
+
+
+  
