@@ -59,5 +59,5 @@ handler
 方法2 会使出站事件只流经a，参考代码 [direction](https://github.com/jasondong-1/ja-netty-study/blob/master/direction)
 
 
-> 注：writeandflush（msg） 已经调用过ReferenceCountUtil.release(msg)
+> 注：writeandflush(msg) 已经调用过ReferenceCountUtil.release(msg)
 
