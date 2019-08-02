@@ -26,7 +26,7 @@
 可以先看一个nety的 [简单例子](https://github.com/jasondong-1/ja-netty-study/blob/master/echo)
 
 #### 4.图解netty  
-netty其实就是客户端(client)和服务端(server)的相互通信，就是我们凭窗说的cs架构，关系如下图  
+netty其实就是客户端(client)和服务端(server)的相互通信，就是我们凭窗说的cs架构，关系如下图    
 ![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettycs.png)  
 具体细节如下图  
 ![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/nettylifecycle.png)  
@@ -39,4 +39,25 @@ netty其实就是客户端(client)和服务端(server)的相互通信，就是�
 * 一个eventloop可能会被分配给一个或多个channel
 
 #### 5.netty的组件和设计  
-##### 5.1channelhandler 和channelpipeline
+##### 5.1channelhandler 和 channelpipeline
+从业务角度看channelhandler 是netty的主要组件，处理出入站数据的逻辑基本都在这里。
+channelpipeline是channelhandler的一个容器，channelhandle人被按照一定的顺序存放在
+channelpipeline中。入站事件和出站事件可以被安装到同一个pipeline中，channelhandler
+被添加到channelpipeline中时，会被分配一个channelhandlercontext他被认为是channelhandler
+和channelpipeline之间的绑定，channelhandlercontext可以用于获得channel，但一般我们
+用来写出站数据。
+
+往外写数据有三种方式:  
+1)ctx.channel.writeAndFlush()  
+2)ctx.writeAndFlush()  
+3)ctx.pipeline.writeAndFlush()  
+
+假设pipeline 安装了如下三个handler  
+outhandler(a)  ---> inhandler(b) ---> outhandler2(c)  
+其中方法1和3会使数据沿着 c-->a 顺序流出，会跳过b，netty会判断事件是进站还是出站，来选择对应的
+handler
+方法2 会使出站事件只流经a，参考代码 [direction](https://github.com/jasondong-1/ja-netty-study/blob/master/direction)
+
+
+> 注：writeandflush（msg） 已经调用过ReferenceCountUtil.release(msg)
+
