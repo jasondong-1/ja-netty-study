@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1.nio之前的网络通信（可以跳过）](#1nio%E4%B9%8B%E5%89%8D%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%8F%AF%E4%BB%A5%E8%B7%B3%E8%BF%87)
+- [2.netty 是什么样的（可以跳过）](#2netty-%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E5%8F%AF%E4%BB%A5%E8%B7%B3%E8%BF%87)
+- [3.netty 的核心组件（了解一下，知道有这么个概念就行，通过例子会慢慢理解）](#3netty-%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E7%9F%A5%E9%81%93%E6%9C%89%E8%BF%99%E4%B9%88%E4%B8%AA%E6%A6%82%E5%BF%B5%E5%B0%B1%E8%A1%8C%E9%80%9A%E8%BF%87%E4%BE%8B%E5%AD%90%E4%BC%9A%E6%85%A2%E6%85%A2%E7%90%86%E8%A7%A3)
+- [4.图解netty](#4%E5%9B%BE%E8%A7%A3netty)
+- [5.netty的组件和设计](#5netty%E7%9A%84%E7%BB%84%E4%BB%B6%E5%92%8C%E8%AE%BE%E8%AE%A1)
+  - [5.1channelhandler 和 channelpipeline](#51channelhandler-%E5%92%8C-channelpipeline)
+- [6.asldflaksfl;aksjf](#6asldflaksflaksjf)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 以下完全是个人阅读《netty实战》对netty的理解，如果有错误的地方，还请指正
 
 #### 1.nio之前的网络通信（可以跳过）
@@ -61,3 +75,4 @@ handler
 
 > 注：writeandflush(msg) 已经调用过ReferenceCountUtil.release(msg)
 
+#### 6.asldflaksfl;aksjf
