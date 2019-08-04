@@ -16,6 +16,7 @@
         <module>event-executor-test</module>
         <module>echo</module>
         <module>note</module>
+        <module>bytebuf</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>

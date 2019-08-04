@@ -54,7 +54,9 @@ netty其实就是客户端(client)和服务端(server)的相互通信，就是�
 
 ### 5.netty的组件和设计  
 #### 5.1channelhandler 和 channelpipeline
-从业务角度看channelhandler 是netty的主要组件，处理出入站数据的逻辑基本都在这里。
+从业务角度看channelhandler 是netty的主要组件，处理出入站数据的逻辑基本都在这里，一般情况下  
+我们用到的channelInBoundhandler居多，为方便我们使用，netty提供了一些默认的channelinboundhandler  
+实现，SimpleChannelInboundHandler<object> 和 ChannelInboundHandlerAdapter 是最常用的  
 channelpipeline是channelhandler的一个容器，channelhandle人被按照一定的顺序存放在
 channelpipeline中。入站事件和出站事件可以被安装到同一个pipeline中，channelhandler
 被添加到channelpipeline中时，会被分配一个channelhandlercontext他被认为是channelhandler
@@ -125,6 +127,76 @@ bootstrap可以帮助我们设置一些信息，比如eventloopgroup，链接地
 细心的读者可能发现了client引导的group() 方法只传了一个eventloopgroup，而server的引导的group()  
 得传两个group，这是因为服务端需要两组不同的channel，**一组只包含一个serverchannel，用于监听是否有  
 连接接过来，另一组代表已经创建的需要处理的客户端连接**
+
+### 6.bytebuf  
+bytebuf是netty 的数据容器，其结构可用下图来解释  
+![avatar](https://github.com/jasondong-1/ja-netty-study/blob/master/note/picture/bytebuf.png)  
+bytebuf 内部维持了一个缓冲数组用于存储z字节，并含有两个下标，readindex和writeindex，readindex  
+代表已经读到了数组的该位置，writeindex代表写到了数组的哪个位置，readindex和writeindex之间的区域  
+为可读字节，下面来看一下bytebuf的一些常用方法  
+```java
+package com.jason.bytebuf.example;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
+public class BytebufExample {
+    public static void main(String[] args) {
+
+        //ByteBuf byteBuf = Unpooled.copiedBuffer("jason",CharsetUtil.UTF_8);
+        ByteBuf byteBuf = Unpooled.buffer(16);
+        //write 方法会使writeindex增加
+        byteBuf.writeInt(10);
+        byteBuf.writeDouble(12d);
+        //read 会使readerindex 增加
+        System.out.println(byteBuf.readInt()); //10
+        System.out.println(byteBuf.readDouble());//12.0
+        System.out.println(byteBuf.isWritable());//true
+        System.out.println(byteBuf.isReadable());//false
+
+        //查看readerindex 和 writerindex
+        System.out.println(byteBuf.readerIndex());//12
+        System.out.println(byteBuf.writerIndex());//12
+
+        //获取bytebuf的可用字节，如有需要会自动增加，直到达到最大值Interger.MAX
+        System.out.println(byteBuf.capacity());//16
+        //获取bytebuf的最大容量 Integer.MAX
+        System.out.println(byteBuf.maxCapacity());//2147483647
+        byteBuf.writeDouble(12.0);
+        //向bytebuf添加新值后capacity自动扩容
+        System.out.println(byteBuf.capacity());//64
+
+        //discardReadBytes 方法会删掉已读的字节，readerindex 置0，并把
+        //腾出的空间加到可写字节
+        //不建议频繁调用该方法，虽然可以节省空间，但该方法会导致缓存的复制，因为
+        //可读字节要移动到缓存的开始位置
+        byteBuf.discardReadBytes();
+        System.out.println(byteBuf.readerIndex());//0
+        System.out.println(byteBuf.writerIndex());//8  我们之前谢了一个12.0 ，但是未读取，所以这里的值是8
+        System.out.println(byteBuf.capacity());//64
+
+        /**
+         *复制，dupicate 和 slice 方法进行的是浅拷贝，共享了之前bytebuf的缓存，只是有了自己的readerindex和
+         * writeindex
+         * copy方法是深拷贝，从此两个新旧bytebuf再无瓜葛
+         */
+        byteBuf.duplicate();
+        byteBuf.slice(0,10);
+        byteBuf.copy();
+        byteBuf.copy(0,10);
+
+        //获取bytebuf可读字节数
+        System.out.println(byteBuf.readableBytes());
+        // 获取bytebuf可写字节数
+        System.out.println(byteBuf.writableBytes());
+        
+
+    }
+}
+
+```  
+查看源码请点击[这里](https://github.com/jasondong-1/ja-netty-study/blob/master/bytebuf)
+
 
 
   
