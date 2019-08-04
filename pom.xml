@@ -17,6 +17,8 @@
         <module>echo</module>
         <module>note</module>
         <module>bytebuf</module>
+        <module>channel-lifecycle</module>
+        <module>channelpipeline</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>

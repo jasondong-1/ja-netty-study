@@ -8,7 +8,10 @@
 - [4.图解netty](#4%E5%9B%BE%E8%A7%A3netty)
 - [5.netty的组件和设计](#5netty%E7%9A%84%E7%BB%84%E4%BB%B6%E5%92%8C%E8%AE%BE%E8%AE%A1)
   - [5.1channelhandler 和 channelpipeline](#51channelhandler-%E5%92%8C-channelpipeline)
-- [6.asldflaksfl;aksjf](#6asldflaksflaksjf)
+  - [5.2 bootstrap 引导](#52-bootstrap-%E5%BC%95%E5%AF%BC)
+- [6.bytebuf](#6bytebuf)
+- [7.再议channelhandler](#7%E5%86%8D%E8%AE%AEchannelhandler)
+- [8.channelpipeline 的常用方法](#8channelpipeline-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -51,6 +54,19 @@ netty其实就是客户端(client)和服务端(server)的相互通信，就是�
 * 所有由eventloop处理的i/o事件都将在它转悠的Thread上处理  
 * 一个channel在他的生命周期内只注册于一个eventloop  
 * 一个eventloop可能会被分配给一个或多个channel
+
+简单说下使用netty的整个流程  
+1.server端
+  声明serverBootStrap 然后配置group，channel类型，端口，handlers，准备就绪，bind即可
+  
+2.client端  
+  声明bootstrap，配置group,channel类型，地址，端口，handlers connet即可  
+一般是客户端先发出消息，server回应。client可以在handler或其他地方调用channel.write、  
+pipeline.write 或者 channelContext.write 来写出消息，这时server中handler的channelread  
+方法会接受到消息，如果该消息是当前拿到消息的handler 该处理的，处理即可，如果不是，可以调用  
+ctx.firechannelread 传递给下一个handler执行  
+
+  
 
 ### 5.netty的组件和设计  
 #### 5.1channelhandler 和 channelpipeline
@@ -197,6 +213,36 @@ public class BytebufExample {
 ```  
 查看源码请点击[这里](https://github.com/jasondong-1/ja-netty-study/blob/master/bytebuf)
 
+### 7.再议channelhandler  
+channel声明周期  
+channelregister ---> channelactive ---> channelinactive ---> channelunregister  
+关于channelhandler 我们重点说说channelInBoundHandler,一般我们用到的方法如下：  
+channelRegistered  
+channelUnRegistered  
+channelActive  
+channelInActive  
+channelReadComplete  
+channelRead   
+上述方法都是在对应状态发生时才会调用，可以亲自运行[例子](https://github.com/jasondong-1/ja-netty-study/blob/master/channel-lifecycle)，打印结果如下：  
+```
+八月 04, 2019 10:27:00 下午 nia.study.echoclient.EchoClientHandler channelRegistered
+信息: I am function: channelRegistered
+八月 04, 2019 10:27:00 下午 nia.study.echoclient.EchoClientHandler channelActive
+信息: I am function: channelActive
+Client received: Netty rocks!
+八月 04, 2019 10:27:00 下午 nia.study.echoclient.EchoClientHandler channelReadComplete
+信息: I am function: channelReadComplete
+八月 04, 2019 10:27:00 下午 nia.study.echoclient.EchoClientHandler channelInactive
+信息: I am function: channelInactive
+八月 04, 2019 10:27:00 下午 nia.study.echoclient.EchoClientHandler channelUnregistered
+信息: I am function: channelUnregistered
+``` 
+由上图结果可以看出channel链接以后调用方法的顺序  
+channelRegistered -> channelActive -> channelRead -> channelReadComplete(所有的可读字节从channel读出后调用) ->   
+channelInactive -> channelUnregistered  
+channelInactive 和 channelUnregistered是在关闭channel链接后调用的  
+一般情况下每个channel创建时添加的handler 都是new 出来的新对象，有时候创建channel时需要共享handler，比如在handler中统计  
+channel的数量，这时候可以在hander类上加@Sharable注解  
 
-
-  
+### 8.channelpipeline 的常用方法  
+详见[示例](https://github.com/jasondong-1/ja-netty-study/blob/master/channelpipeline)
