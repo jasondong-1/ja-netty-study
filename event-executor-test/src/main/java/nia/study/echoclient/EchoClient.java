@@ -39,6 +39,7 @@ public class EchoClient {
                         @Override
                         public void initChannel(SocketChannel ch)
                                 throws Exception {
+                            //添加executorgroup ,用来执行耗时任务
                             ch.pipeline().addLast(executors,
                                     new EchoClientHandler());
                         }

@@ -12,6 +12,7 @@
 - [6.bytebuf](#6bytebuf)
 - [7.再议channelhandler](#7%E5%86%8D%E8%AE%AEchannelhandler)
 - [8.channelpipeline 的常用方法](#8channelpipeline-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95)
+- [9.EventExecutorGroup 防止channel阻塞](#9eventexecutorgroup-%E9%98%B2%E6%AD%A2channel%E9%98%BB%E5%A1%9E)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -242,7 +243,15 @@ channelRegistered -> channelActive -> channelRead -> channelReadComplete(所有�
 channelInactive -> channelUnregistered  
 channelInactive 和 channelUnregistered是在关闭channel链接后调用的  
 一般情况下每个channel创建时添加的handler 都是new 出来的新对象，有时候创建channel时需要共享handler，比如在handler中统计  
-channel的数量，这时候可以在hander类上加@Sharable注解  
+channel的数量，这时候可以在hander类上加@Sharable注解,当然你得保证handler的县城安全性  
 
 ### 8.channelpipeline 的常用方法  
-详见[示例](https://github.com/jasondong-1/ja-netty-study/blob/master/channelpipeline)
+详见[示例](https://github.com/jasondong-1/ja-netty-study/blob/master/channelpipeline)  
+
+### 9.EventExecutorGroup 防止channel阻塞  
+channelPipeline 中的handler都是通过EventLoop的I/O线程来执行任务的，因此如果阻塞了该线程，就会阻塞整体I/O，  
+为了防止阻塞，可以使用EventExecutorGroup，我写了一个[demo](https://github.com/jasondong-1/ja-netty-study/blob/master/event-executor-test)，  
+大致流程如下：  
+client端channel active之后每隔200ms向server端写一个数字（0-5）,server收到消息后讲处理数字的逻辑交由EventExecutor执行，  
+当server收到数字5后就关闭链接，通过运行代码可以看出，server端违背阻塞，收到5后关闭了channel（但是EventExecutor收到的任务还  
+要执行完成）  

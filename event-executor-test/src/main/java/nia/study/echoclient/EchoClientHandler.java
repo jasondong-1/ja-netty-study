@@ -20,7 +20,7 @@ public class EchoClientHandler
         extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws InterruptedException {
-
+        //channel 处于活动状态时，每隔200ms，想server发一个数字
         for (int i = 0; i < 6; i++) {
             ctx.writeAndFlush(Unpooled.copiedBuffer(String.valueOf(i),
                     CharsetUtil.UTF_8));
@@ -36,6 +36,7 @@ public class EchoClientHandler
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) {
+        //收到server的回复后打印出来
         System.out.println(
                 "Client received: " + in.toString(CharsetUtil.UTF_8));
     }
