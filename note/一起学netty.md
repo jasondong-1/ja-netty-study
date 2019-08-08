@@ -255,3 +255,8 @@ channelPipeline 中的handler都是通过EventLoop的I/O线程来执行任务的
 client端channel active之后每隔200ms向server端写一个数字（0-5）,server收到消息后讲处理数字的逻辑交由EventExecutor执行，  
 当server收到数字5后就关闭链接，通过运行代码可以看出，server端违背阻塞，收到5后关闭了channel（但是EventExecutor收到的任务还  
 要执行完成）  
+
+### 10.用Pojo进行传输  
+之前我们的示例进行传输的时候都是用的bytebuf,我觉得传输对象会更方便一些，传输pojo，当出站时需要将pojo转换为bytes，入站时需要将bytes  
+转换为pojo，所以需要encoder和decoder，具体看[例子](https://github.com/jasondong-1/ja-netty-study/blob/master/echo-pojo)  
+<font color=red>切记一定要给pojo实现serializable接口</font>        

@@ -19,6 +19,7 @@
         <module>bytebuf</module>
         <module>channel-lifecycle</module>
         <module>channelpipeline</module>
+        <module>echo-pojo</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>
