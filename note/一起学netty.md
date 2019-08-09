@@ -13,6 +13,10 @@
 - [7.再议channelhandler](#7%E5%86%8D%E8%AE%AEchannelhandler)
 - [8.channelpipeline 的常用方法](#8channelpipeline-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95)
 - [9.EventExecutorGroup 防止channel阻塞](#9eventexecutorgroup-%E9%98%B2%E6%AD%A2channel%E9%98%BB%E5%A1%9E)
+- [10.用Pojo进行传输](#10%E7%94%A8pojo%E8%BF%9B%E8%A1%8C%E4%BC%A0%E8%BE%93)
+- [11.谷歌protobuf传输](#11%E8%B0%B7%E6%AD%8Cprotobuf%E4%BC%A0%E8%BE%93)
+- [12.eventtrigger](#12eventtrigger)
+- [13.分享其他比较好的文章](#13%E5%88%86%E4%BA%AB%E5%85%B6%E4%BB%96%E6%AF%94%E8%BE%83%E5%A5%BD%E7%9A%84%E6%96%87%E7%AB%A0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -97,7 +101,7 @@ handler
 引导是创建channel 的一个帮助类
 
 client的引导
-```java
+```
             Bootstrap b = new Bootstrap();
             //指定 EventLoopGroup 以处理客户端事件；需要适用于 NIO 的实现
             b.group(group)
@@ -118,7 +122,7 @@ client的引导
                     });
 ```  
 server 的引导  
-```java
+```
             ServerBootstrap b = new ServerBootstrap();
             b.group(boss, worker)
                     //(3) 指定所使用的 NIO 传输 Channel
@@ -259,4 +263,21 @@ client端channel active之后每隔200ms向server端写一个数字（0-5）,ser
 ### 10.用Pojo进行传输  
 之前我们的示例进行传输的时候都是用的bytebuf,我觉得传输对象会更方便一些，传输pojo，当出站时需要将pojo转换为bytes，入站时需要将bytes  
 转换为pojo，所以需要encoder和decoder，具体看[例子](https://github.com/jasondong-1/ja-netty-study/blob/master/echo-pojo)  
-<font color=red>切记一定要给pojo实现serializable接口</font>        
+> 切记一定要给pojo实现serializable接口 
+
+### 11.谷歌protobuf传输  
+protobuf 传输是一个更高校的传输（和使用pojo类似），protobuf的使用方法可以上网百度，注意点是protoc 和protobuf-java maven依赖  
+版本要一致，否则会报错，请看[例子](https://github.com/jasondong-1/ja-netty-study/blob/master/file-transfer-proto)  
+
+### 12.eventtrigger
+这个知识点我们用一个断线重连的[例子](https://github.com/jasondong-1/ja-netty-study/blob/master/heart-beat)  
+这个例子来自[博客](https://blog.csdn.net/linuu/article/details/51509847)  
+
+### 13.分享其他比较好的文章  
+[Netty核心NioEventLoop原理解析](https://blog.csdn.net/TheLudlows/article/details/82961193)  
+[channeloption参数](https://www.jianshu.com/p/975b30171352)  
+[ssl双向验证](https://blog.csdn.net/moonpure/article/details/82863181)  
+
+
+
+       
