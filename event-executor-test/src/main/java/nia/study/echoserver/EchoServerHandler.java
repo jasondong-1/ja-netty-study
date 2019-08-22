@@ -36,7 +36,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
                 Thread.sleep(ll);
                 System.out.println(
-                        "Server received: " + s + ",我要睡" + ll + "ms.我是" + Thread.currentThread().getId());
+                        "Server received: " + s + ",我要睡" + ll + "ms.我是" + Thread.currentThread().getName());
                 ctx2.writeAndFlush(Unpooled.copiedBuffer(String.valueOf(s), CharsetUtil.UTF_8));
                 return 3;
             }

@@ -7,10 +7,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.concurrent.DefaultEventExecutor;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Listing 2.4 Main class for the client
@@ -64,7 +65,21 @@ public class EchoClient {
 
         final String host = args[0];
         final int port = Integer.parseInt(args[1]);
-        new EchoClient(host, port).start();
+        ExecutorService service = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 3; i++) {
+            service.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        new EchoClient(host, port).start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        service.shutdown();
+
     }
 }
 

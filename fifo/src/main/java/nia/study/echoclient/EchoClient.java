@@ -12,8 +12,6 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * 代码清单 2-4 客户端的主类
@@ -75,21 +73,8 @@ public class EchoClient {
 
         final String host = args[0];
         final int port = Integer.parseInt(args[1]);
-        ExecutorService service = Executors.newFixedThreadPool(5);
-        for (int i = 0; i <= 4; i++) {
-            service.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        new EchoClient(host, port).start();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
+        new EchoClient(host, port).start();
 
-        service.shutdown();
     }
 }
 

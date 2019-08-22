@@ -1,7 +1,5 @@
 package nia.study.echoserver;
 
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,13 +14,13 @@ import nia.study.Student;
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        if (msg instanceof Student){
+        if (msg instanceof Student) {
             Student in = (Student) msg;
             System.out.println(
-                    "Server received: " + in.toString());
+                    "Server received: " + in.toString() + "  " + Thread.currentThread().getName());
             //将读到的消息写出
             ctx.writeAndFlush(in);
-        }else {
+        } else {
             System.out.println("xx");
         }
 
@@ -32,13 +30,12 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx)
             throws Exception {
         //写完消息后关闭channel
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
-                .addListener(ChannelFutureListener.CLOSE);
+        //ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
-        Throwable cause) {
+                                Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

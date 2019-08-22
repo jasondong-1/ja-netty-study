@@ -20,6 +20,8 @@
         <module>channel-lifecycle</module>
         <module>channelpipeline</module>
         <module>echo-pojo</module>
+        <!-->尝试在read方法中使用线程<-->
+        <module>fifo</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>

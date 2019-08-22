@@ -7,6 +7,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Listing 2.3 ChannelHandler for the client
  *
@@ -14,9 +17,10 @@ import io.netty.util.CharsetUtil;
  */
 @Sharable
 public class EchoClientHandler
-    extends SimpleChannelInboundHandler<ByteBuf> {
+        extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
+        ExecutorService service = Executors.newFixedThreadPool(4);
         ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!",
                 CharsetUtil.UTF_8));
     }
@@ -29,7 +33,7 @@ public class EchoClientHandler
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
-        Throwable cause) {
+                                Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

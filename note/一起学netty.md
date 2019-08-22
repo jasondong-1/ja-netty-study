@@ -257,8 +257,8 @@ channelPipeline 中的handler都是通过EventLoop的I/O线程来执行任务的
 为了防止阻塞，可以使用EventExecutorGroup，我写了一个[demo](https://github.com/jasondong-1/ja-netty-study/blob/master/event-executor-test)，  
 大致流程如下：  
 client端channel active之后每隔200ms向server端写一个数字（0-5）,server收到消息后讲处理数字的逻辑交由EventExecutor执行，  
-当server收到数字5后就关闭链接，通过运行代码可以看出，server端违背阻塞，收到5后关闭了channel（但是EventExecutor收到的任务还  
-要执行完成）  
+当server收到数字5后就关闭链接，通过运行代码可以看出，server端未被阻塞，收到5后关闭了channel（但是EventExecutor收到的任务还  
+要执行完成），尽管EventExecutorGroup中有多个线程，但是每个channel在整个生命周期只能使用EventExecutorGroup中固定的一个线程，    
 
 ### 10.用Pojo进行传输  
 之前我们的示例进行传输的时候都是用的bytebuf,我觉得传输对象会更方便一些，传输pojo，当出站时需要将pojo转换为bytes，入站时需要将bytes  

@@ -6,8 +6,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import nia.study.Student;
 
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Listing 2.3 ChannelHandler for the client
@@ -20,7 +18,11 @@ public class EchoClientHandler
     @Override
     public void channelActive(final ChannelHandlerContext ctx) {
         final String name = UUID.randomUUID().toString();
-        ctx.writeAndFlush(new Student(Thread.currentThread().getName() + name, 20));
+        for (int i = 0; i < 4; i++) {
+            final int finalI = i;
+            ctx.writeAndFlush(new Student(Thread.currentThread().getName() + name, finalI));
+        }
+
     }
 
     @Override
