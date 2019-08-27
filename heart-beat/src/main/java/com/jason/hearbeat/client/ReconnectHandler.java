@@ -19,6 +19,12 @@ public abstract class ReconnectHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("hello");
+        super.channelActive(ctx);
+    }
+
+    @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("进入 inactive");
         if (count < trytime) {

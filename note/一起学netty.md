@@ -258,7 +258,15 @@ channelPipeline 中的handler都是通过EventLoop的I/O线程来执行任务的
 大致流程如下：  
 client端channel active之后每隔200ms向server端写一个数字（0-5）,server收到消息后讲处理数字的逻辑交由EventExecutor执行，  
 当server收到数字5后就关闭链接，通过运行代码可以看出，server端未被阻塞，收到5后关闭了channel（但是EventExecutor收到的任务还  
-要执行完成），尽管EventExecutorGroup中有多个线程，但是每个channel在整个生命周期只能使用EventExecutorGroup中固定的一个线程，    
+要执行完成），尽管EventExecutorGroup中有多个线程，但是每个channel在整个生命周期只能使用EventExecutorGroup中固定的一个线程，  
+以上的说法有错误，通过阅读源码及实际[测试](https://github.com/jasondong-1/ja-netty-study/blob/master/event-executor-test2),现得出如下结论：  
+
+通过addLast(eventexecutorgroup,handler) 可以熊group中选择一个executor绑定到handler（终身的），当前handler的io操作都会使用  
+该绑定的executor来执行，其他hanler还会使用eventloop的线程来处理，如果有另一个handler也使用了addLast(eventexecutorgroup,handler)  
+方式来添加的，那么他被分配的executor跟上一个handler分配的executor是同一个。
+
+
+  
 
 ### 10.用Pojo进行传输  
 之前我们的示例进行传输的时候都是用的bytebuf,我觉得传输对象会更方便一些，传输pojo，当出站时需要将pojo转换为bytes，入站时需要将bytes  

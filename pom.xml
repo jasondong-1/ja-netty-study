@@ -14,6 +14,8 @@
         <!-- 用来测试ctx。write channel.write channelpipeline.write 的传播方向-->
         <module>direction</module>
         <module>event-executor-test</module>
+        <!-->验证<-->
+        <module>event-executor-test2</module>
         <module>echo</module>
         <module>note</module>
         <module>bytebuf</module>
