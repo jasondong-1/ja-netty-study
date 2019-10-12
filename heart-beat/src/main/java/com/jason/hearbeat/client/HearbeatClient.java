@@ -1,10 +1,7 @@
 package com.jason.hearbeat.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -56,6 +53,7 @@ public class HearbeatClient {
             System.out.println("client 链接成功");
             System.out.println("channel id :" + future.channel().id().asLongText());
             future.channel().closeFuture().sync();
+            System.out.println("haha");
         } finally {
             //System.out.println("gracefully");
             //group.shutdownGracefully();

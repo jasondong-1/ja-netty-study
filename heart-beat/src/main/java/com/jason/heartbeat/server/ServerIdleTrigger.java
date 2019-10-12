@@ -1,14 +1,23 @@
 package com.jason.heartbeat.server;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 
 public class ServerIdleTrigger extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("aa");
+        try{
+            System.out.println(((ByteBuf)msg).toString(CharsetUtil.UTF_8));
+        }finally {
+            ReferenceCountUtil.release(msg);
+        }
+
+
     }
 
     @Override

@@ -47,6 +47,7 @@ public class EchoClient {
                 });
             //连接到远程节点，阻塞等待直到连接完成
             ChannelFuture f = b.connect().sync();
+            System.out.println("========");
             //阻塞，直到Channel 关闭
             f.channel().closeFuture().sync();
         } finally {
@@ -59,7 +60,7 @@ public class EchoClient {
             throws Exception {
         args = new String[]{
                 "localhost",
-                "9000"
+                "9001"
         };
         if (args.length != 2) {
             System.err.println("Usage: " + EchoClient.class.getSimpleName() +
