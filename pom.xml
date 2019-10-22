@@ -24,6 +24,8 @@
         <module>echo-pojo</module>
         <!-->尝试在read方法中使用线程<-->
         <module>fifo</module>
+        <!-- 定时任务-->
+        <module>hashed-wheel-timer</module>
     </modules>
     <properties>
         <junit.version>4.11</junit.version>
